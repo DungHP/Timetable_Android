@@ -19,5 +19,5 @@ interface TimetableDao {
     fun fetchAllTimetable(): Flow<List<TimetableEntity>>
 
     @Query("SELECT * FROM `timetable-table` WHERE id=:id")
-    fun fetchTimetableById(id:Int): Flow<List<TimetableEntity>>
+    fun fetchTimetableById(id:Int): Flow<TimetableEntity>
 }
