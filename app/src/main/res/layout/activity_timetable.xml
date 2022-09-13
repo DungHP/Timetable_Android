@@ -14,9 +14,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background=""
-            android:text="<-"
-            android:textColor="@color/black"
+            android:text="BACK"
+            android:textColor="@color/white"
             android:textStyle="bold"
             />
         <TextView
@@ -29,9 +28,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background=""
-            android:text="->"
-            android:textColor="@color/black"
+            android:text="FORWARD"
+            android:textColor="@color/white"
             android:textStyle="bold"
             />
     </LinearLayout>
