@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable_android.databinding.TimetableRowBinding
 
-class TimetableAdapter(private var items: ArrayList<TimetableEntity>):RecyclerView.Adapter<TimetableAdapter.ViewHolder>(){
+class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
+                       private val editListener: (id: Int) -> Unit,
+                       private val deleteListener: (id: Int) -> Unit):RecyclerView.Adapter<TimetableAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        return ViewHolder(TimetableRowBinding.inflate(
@@ -19,6 +21,12 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>):RecyclerVi
         holder.date.text = item.date
         holder.description.text = item.description
 
+        holder.edit.setOnClickListener {
+            editListener.invoke(item.id)
+        }
+        holder.delete.setOnClickListener{
+            deleteListener.invoke(item.id)
+        }
 
 
     }
@@ -30,5 +38,8 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>):RecyclerVi
         val llTimetableRow = binding.llTimetableRow
         val date = binding.tvDate
         val description = binding.tvDescription
+        val edit = binding.ivEdit
+        val delete= binding.ivDelete
     }
+
 }
