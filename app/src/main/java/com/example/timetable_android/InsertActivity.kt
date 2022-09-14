@@ -1,5 +1,6 @@
 package com.example.timetable_android
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -32,5 +33,8 @@ class InsertActivity : AppCompatActivity() {
 
             }
         }
+        intent = Intent(this, TimetableActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
