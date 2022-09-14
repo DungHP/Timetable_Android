@@ -22,13 +22,18 @@ class TimetableActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTimetableBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
         val timetableDao = (application as TimetableApp).db.timetableDao()
         binding?.btnCreate?.setOnClickListener{
             intent = Intent(this, InsertActivity::class.java)
             startActivity(intent)
             finish()
         }
-
+        binding?.btnGoBack?.setOnClickListener{
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         lifecycleScope.launch{
             timetableDao.fetchAllTimetable().collect{
                 val list = ArrayList(it)

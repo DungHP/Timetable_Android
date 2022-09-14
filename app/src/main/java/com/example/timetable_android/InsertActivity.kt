@@ -19,6 +19,11 @@ class InsertActivity : AppCompatActivity() {
         binding?.btnAdd?.setOnClickListener{
             addRecord(timetableDao)
         }
+        binding?.btnGoBack?.setOnClickListener{
+            intent = Intent(this, TimetableActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
     fun addRecord(timetableDao : TimetableDao){
         val date = binding?.etDate?.text.toString()
