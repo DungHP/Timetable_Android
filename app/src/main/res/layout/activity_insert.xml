@@ -28,12 +28,20 @@
             android:text="Date"
             android:textSize="18sp"
             />
-        <EditText
-            android:id="@+id/etDate"
-            android:layout_margin="15dp"
+        <Button
+            android:id="@+id/btn_picktime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Date (WIP)" />
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:text="PICK DATE"/>
+        <TextView
+            android:id="@+id/tvTestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="TIME"
+            />
         <TextView
             android:id="@+id/tvDescriptionLabel"
             android:layout_width="wrap_content"

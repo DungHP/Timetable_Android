@@ -9,6 +9,9 @@ import java.util.*
 data class TimetableEntity(
     @PrimaryKey(autoGenerate= true)
     val id: Int = 0,
+    val year : String = "",
+    val month : String = "",
+    val time: String = "",
     val date: String = "",
     val description: String = ""
 )
