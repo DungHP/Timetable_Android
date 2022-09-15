@@ -23,7 +23,6 @@ import kotlin.collections.ArrayList
 
 class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     private var binding: ActivityTimetableBinding? = null
-    private var editBinding: ActivityEditBinding ? = null
     private var day = 0
     private var month = 0
     private var year = 0

@@ -77,7 +77,6 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         binding?.btnPicktime?.setOnClickListener{
             getDateTimeCalender()
             DatePickerDialog(this, this, year,month, day).show()
-            binding?.tvDateSelected?.text = "$savedYear/$savedMonth/$savedDay $savedHour"
         }
     }
     //When Finished Selecting Date
@@ -85,11 +84,13 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         savedDay = day
         savedMonth = month
         savedYear = year
+        binding?.tvDateSelected?.text = "$savedYear/$savedMonth/$savedDay"
         getDateTimeCalender()
         TimePickerDialog(this, this, hour,minute, true).show()
     }
     //When Finished Selecting Time
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
+        binding?.tvDateSelected?.append("$hour:$minute")
         savedHour = hour
         savedMinute = minute
     }
