@@ -42,16 +42,17 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         pickDate()
     }
     fun addRecord(timetableDao : TimetableDao){
-        val date = savedDay.toString()
+        val day = savedDay.toString()
         val year = savedYear.toString()
         val month = savedMonth.toString()
-        val time = "$savedHour:$savedMinute"
+        val hour = savedHour.toString()
+        val minute = savedMinute.toString()
         val description = binding?.etDescription?.text.toString()
 
-        if (date != "0:0" && description.isNotEmpty()){
+        if (day != "0" && description.isNotEmpty()){
             lifecycleScope.launch{
                 timetableDao.insert(TimetableEntity(year= year, month = month,
-                    time=time, date=date, description= description))
+                    day= day, hour = hour, minute = minute, description= description))
                 Toast.makeText(applicationContext,"Record Saved Successfully", Toast.LENGTH_LONG).show()
                 binding?.etDescription?.text?.clear()
             }
@@ -76,6 +77,7 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         binding?.btnPicktime?.setOnClickListener{
             getDateTimeCalender()
             DatePickerDialog(this, this, year,month, day).show()
+            binding?.tvDateSelected?.text = "$savedYear/$savedMonth/$savedDay $savedHour"
         }
     }
     //When Finished Selecting Date
@@ -90,6 +92,5 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
-        binding?.tvDateLabel?.text = "$savedDay/$savedMonth/$savedYear - $savedHour:$savedMinute"
     }
 }

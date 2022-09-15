@@ -36,6 +36,14 @@
             android:layout_marginRight="100dp"
             android:text="PICK DATE"/>
         <TextView
+            android:id="@+id/tvDateSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="0000/00/00 00:00"
+            android:layout_marginBottom="25dp"
+            />
+        <TextView
             android:id="@+id/tvTestTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

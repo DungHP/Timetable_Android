@@ -18,7 +18,7 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
         val item = items[position]
-        holder.date.text = item.date
+        holder.date.text = "${item.hour}:${item.minute}"
         holder.description.text = item.description
 
         holder.edit.setOnClickListener {

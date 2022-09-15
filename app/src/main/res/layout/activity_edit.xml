@@ -19,22 +19,42 @@
             android:textStyle="bold"
             android:layout_marginBottom="25dp"/>
         <TextView
-            android:id="@+id/tvDateLabel"
+            android:id="@+id/tvTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="Current Time"
             android:textSize="18sp" />
-        <EditText
-            android:id="@+id/etUpdateDate"
-            android:layout_width="match_parent"
+     <TextView
+        android:id="@+id/tvCurrentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/tvCurrentDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Date"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/tvCurrentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0000/00/00"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+        <Button
+            android:id="@+id/btnSelectTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Enter Date" />
+            android:text="SELECT TIME"
+            android:layout_marginBottom="15dp"/>
         <TextView
             android:id="@+id/tvDescriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email ID"
+            android:text="Description"
             android:textSize="18sp" />
 
         <EditText
