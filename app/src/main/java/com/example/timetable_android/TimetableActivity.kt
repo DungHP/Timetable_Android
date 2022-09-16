@@ -187,6 +187,8 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             savedDayForTimetable = day
             savedMonthForTimetable = month
             savedYearForTimetable = year
+            getDateTimeCalender()
+            TimePickerDialog(this, this, hour,minute, false).show()
         }
         if (datePickerSelection == 2){
             savedDayForDisplay = day
@@ -195,8 +197,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
             binding?.tvDateShown?.text = "$savedYearForDisplay/$savedMonthForDisplay/$savedDayForDisplay"
         }
-        getDateTimeCalender()
-        TimePickerDialog(this, this, hour,minute, false).show()
+
     }
     //When Finished Selecting Time
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
