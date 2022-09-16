@@ -18,6 +18,7 @@ import com.example.timetable_android.databinding.ActivityEditBinding
 import com.example.timetable_android.databinding.ActivityTimetableBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -53,6 +54,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             startActivity(intent)
             finish()
         }
+        //Get The Display Date is Selected
         binding?.tvDateShown?.setOnClickListener{
             datePickerSelection = 2
             pickDate()
@@ -78,7 +80,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                 }})
             binding?.rvTimetableList?.layoutManager=LinearLayoutManager(this)
             binding?.rvTimetableList?.adapter = timetableAdapter
-            binding?.rvTimetableList?.visibility = View.VISIBLE
+            binding?.rvTimetableList?.visibility = View.GONE
             binding?.tvNoRecords?.visibility = View.GONE
         }
         else{
@@ -183,19 +185,36 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     }
     //When Finished Selecting Date
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
+        val timetableDao = (application as TimetableApp).db.timetableDao()
+
         if (datePickerSelection == 1){
             savedDayForTimetable = day
-            savedMonthForTimetable = month
+            savedMonthForTimetable = month + 1
             savedYearForTimetable = year
             getDateTimeCalender()
             TimePickerDialog(this, this, hour,minute, false).show()
         }
         if (datePickerSelection == 2){
             savedDayForDisplay = day
-            savedMonthForDisplay = month
+            savedMonthForDisplay = month + 1
             savedYearForDisplay = year
-
             binding?.tvDateShown?.text = "$savedYearForDisplay/$savedMonthForDisplay/$savedDayForDisplay"
+           lifecycleScope.launch{
+                timetableDao.fetchAllTimetableOfCorrectDay(
+                   savedYearForDisplay, savedMonthForDisplay, savedDayForDisplay).collect{
+                    try {
+                        if (binding?.tvDateShown?.text == "${it[0].year}/${it[0].month}/${it[0].day}"){
+                            binding?.rvTimetableList?.visibility = View.VISIBLE
+                            binding?.tvNoRecords?.visibility = View.GONE
+                        }
+                    } catch (e: IndexOutOfBoundsException) {
+                        binding?.tvNoRecords?.visibility = View.VISIBLE
+                        binding?.rvTimetableList?.visibility = View.GONE
+                    }
+                }
+           }
+
+
         }
 
     }
