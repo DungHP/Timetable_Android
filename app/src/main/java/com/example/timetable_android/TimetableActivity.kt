@@ -28,11 +28,15 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private var year = 0
     private var hour = 0
     private var minute = 0
-    private var savedDay = 0
-    private var savedMonth = 0
-    private var savedYear = 0
+    private var savedDayForTimetable = 0
+    private var savedMonthForTimetable = 0
+    private var savedYearForTimetable = 0
+    private var savedDayForDisplay = 0
+    private var savedMonthForDisplay = 0
+    private var savedYearForDisplay = 0
     private var savedHour = 0
     private var savedMinute = 0
+    private var datePickerSelection : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimetableBinding.inflate(layoutInflater)
@@ -48,6 +52,11 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
+        }
+        binding?.tvDateShown?.setOnClickListener{
+            datePickerSelection = 2
+            pickDate()
+
         }
         lifecycleScope.launch{
             timetableDao.fetchAllTimetable().collect{
@@ -94,13 +103,14 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             }
         }
         binding.btnSelectTime.setOnClickListener{
+            datePickerSelection = 1
             pickDate()
         }
         binding.tvUpdate.setOnClickListener {
             val description = binding.etUpdateDescription.text.toString()
-            val day = savedDay.toString()
-            val year = savedYear.toString()
-            val month = savedMonth.toString()
+            val day = savedDayForTimetable.toString()
+            val year = savedYearForTimetable.toString()
+            val month = savedMonthForTimetable.toString()
             val hour = savedHour.toString()
             val minute = savedMinute.toString()
             if (year != "0" && description.isNotEmpty()) {
@@ -173,9 +183,18 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     }
     //When Finished Selecting Date
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
-        savedDay = day
-        savedMonth = month
-        savedYear = year
+        if (datePickerSelection == 1){
+            savedDayForTimetable = day
+            savedMonthForTimetable = month
+            savedYearForTimetable = year
+        }
+        if (datePickerSelection == 2){
+            savedDayForDisplay = day
+            savedMonthForDisplay = month
+            savedYearForDisplay = year
+
+            binding?.tvDateShown?.text = "$savedYearForDisplay/$savedMonthForDisplay/$savedDayForDisplay"
+        }
         getDateTimeCalender()
         TimePickerDialog(this, this, hour,minute, false).show()
     }
