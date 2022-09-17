@@ -3,7 +3,7 @@ package com.example.timetable_android
 import android.content.Context
 import androidx.room.*
 
-@Database(entities = [TimetableCategoryEntity::class], version = 1)
+@Database(entities = [TimetableCategoryEntity::class], version = 2)
 @TypeConverters(Converter::class)
 abstract class TimetableCategoryDatabase : RoomDatabase() {
     abstract fun timetableCategoryDao(): TimetableCategoryDao
