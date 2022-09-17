@@ -13,39 +13,21 @@
         android:textColor="@color/black"
         android:textSize="45sp"
         android:textStyle="bold"
+        android:gravity="center"
         />
-    <ScrollView
+    <Button
+        android:id="@+id/btn_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_workplace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                >
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/workplace"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="WORK PLACE"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textSize="24sp"
-                    />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </ScrollView>
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:text="NEW CATEGORY"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTimetableCategoryList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

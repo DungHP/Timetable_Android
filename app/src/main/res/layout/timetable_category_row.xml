@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_timetable_category_row"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_margin="20dp">
+    <ImageView
+        android:id="@+id/ivCategoryImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        />
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NO TEXT"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        />
+</LinearLayout>
