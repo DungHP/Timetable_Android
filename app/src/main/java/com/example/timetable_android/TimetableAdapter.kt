@@ -1,6 +1,5 @@
 package com.example.timetable_android
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +32,7 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
         holder.delete.setOnClickListener{
             deleteListener.invoke(item.id)
         }
-
-
     }
-
     override fun getItemCount(): Int {
         return items.size
     }

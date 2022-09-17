@@ -7,10 +7,12 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.timetable_android.databinding.ActivityCategoryAddBinding
 import com.example.timetable_android.databinding.ActivityEditBinding
 import com.example.timetable_android.databinding.ActivityMainBinding
@@ -42,6 +44,21 @@ class MainActivity : AppCompatActivity() {
                 binding?.btnCreate?.setOnClickListener{
                     addNewCategory(timetableCategoryDao)
                 }
+        lifecycleScope.launch{
+            timetableCategoryDao.fetchAllTimetableCategory().collect{
+                val list = ArrayList(it)
+                setUpDataInRecyclerView(list)
+            }
+        }
+
+            val start = intent.getStringExtra("startActivity").toString()
+            if(start == "start"){
+                intent = Intent(this, TimetableActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
     }
     fun getPickIntent(): Intent {
         val pickIntent = Intent(Intent.ACTION_PICK,
@@ -59,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             openGalleryLauncher.launch(getPickIntent())
         }
         binding.btnSubmit.setOnClickListener{
+            addCategoryDialog.dismiss()
             val description = binding.etDescription.text.toString()
             if(description.isNotEmpty()){
                 lifecycleScope.launch{
@@ -75,5 +93,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         addCategoryDialog.show()
+    }
+    private fun setUpDataInRecyclerView(timetableCategoryList: ArrayList<TimetableCategoryEntity>){
+        if (timetableCategoryList.isNotEmpty()) {
+            val TimetableCategoryAdapter = TimetableCategoryAdapter(timetableCategoryList, )
+            binding?.rvTimetableCategoryList?.layoutManager = LinearLayoutManager(this)
+            binding?.rvTimetableCategoryList?.adapter = TimetableCategoryAdapter
+
+        } else {
+            //Implement Later!
+        }
     }
 }

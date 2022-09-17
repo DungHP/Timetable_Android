@@ -3,8 +3,7 @@ package com.example.timetable_android
 import android.content.Context
 import androidx.room.*
 
-@Database(entities = [TimetableCategoryEntity::class], version = 2)
-@TypeConverters(Converter::class)
+@Database(entities = [TimetableCategoryEntity::class], version = 1)
 abstract class TimetableCategoryDatabase : RoomDatabase() {
     abstract fun timetableCategoryDao(): TimetableCategoryDao
 
@@ -19,7 +18,7 @@ abstract class TimetableCategoryDatabase : RoomDatabase() {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext, TimetableCategoryDatabase::class.java,
-                        "timetable_database"
+                        "timetable_category_database"
                     ).fallbackToDestructiveMigration() //Wipe Migration and Rebuild
                         .build()
 

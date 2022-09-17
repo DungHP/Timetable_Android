@@ -70,7 +70,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     }
     private fun setUpDataInRecyclerView(timetableList: ArrayList<TimetableEntity>, timetableDao: TimetableDao){
         if(timetableList.isNotEmpty()){
-            val timetableAdapter = TimetableAdapter(timetableList, {editId -> editRecordDialog(editId, timetableDao)},
+            val TimetableAdapter = TimetableAdapter(timetableList, {editId -> editRecordDialog(editId, timetableDao)},
                 {deleteId -> lifecycleScope.launch{
                     timetableDao.fetchTimetableById(deleteId).collect{
                         if(it != null){
@@ -79,7 +79,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     }
                 }})
             binding?.rvTimetableList?.layoutManager=LinearLayoutManager(this)
-            binding?.rvTimetableList?.adapter = timetableAdapter
+            binding?.rvTimetableList?.adapter = TimetableAdapter
             binding?.rvTimetableList?.visibility = View.GONE
             binding?.tvNoRecords?.visibility = View.GONE
         }
