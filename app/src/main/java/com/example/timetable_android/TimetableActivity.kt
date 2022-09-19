@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.media.TimedMetaData
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,8 +15,10 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable_android.databinding.ActivityEditBinding
 import com.example.timetable_android.databinding.ActivityTimetableBinding
+import com.example.timetable_android.databinding.TimetableRowBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.IndexOutOfBoundsException
@@ -77,7 +80,8 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                             deleteAlertDialog(deleteId, timetableDao,it)
                         }
                     }
-                }})
+                }}, getDisplayDate()
+            )
             binding?.rvTimetableList?.layoutManager=LinearLayoutManager(this)
             binding?.rvTimetableList?.adapter = TimetableAdapter
             binding?.rvTimetableList?.visibility = View.GONE
@@ -157,9 +161,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
                 dialogInterface.dismiss() // Dialog will be dismissed
             }
-
         }
-
         //performing negative action
         builder.setNegativeButton("No") { dialogInterface, which ->
             dialogInterface.dismiss() // Dialog will be dismissed
@@ -199,29 +201,30 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             savedMonthForDisplay = month + 1
             savedYearForDisplay = year
             binding?.tvDateShown?.text = "$savedYearForDisplay/$savedMonthForDisplay/$savedDayForDisplay"
-           lifecycleScope.launch{
+             lifecycleScope.launch{
                 timetableDao.fetchAllTimetableOfCorrectDay(
                    savedYearForDisplay, savedMonthForDisplay, savedDayForDisplay).collect{
                     try {
                         if (binding?.tvDateShown?.text == "${it[0].year}/${it[0].month}/${it[0].day}"){
+                            val list = ArrayList(it)
+                            setUpDataInRecyclerView(list, timetableDao)
                             binding?.rvTimetableList?.visibility = View.VISIBLE
                             binding?.tvNoRecords?.visibility = View.GONE
                         }
                     } catch (e: IndexOutOfBoundsException) {
-                        binding?.tvNoRecords?.visibility = View.VISIBLE
                         binding?.rvTimetableList?.visibility = View.GONE
+                        binding?.tvNoRecords?.visibility = View.VISIBLE
                     }
                 }
            }
-
-
         }
-
     }
     //When Finished Selecting Time
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
     }
-
+    fun getDisplayDate(): String {
+        return binding?.tvDateShown?.text as String
+    }
 }
