@@ -80,7 +80,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                             deleteAlertDialog(deleteId, timetableDao,it)
                         }
                     }
-                }}, getDisplayDate()
+                }}
             )
             binding?.rvTimetableList?.layoutManager=LinearLayoutManager(this)
             binding?.rvTimetableList?.adapter = TimetableAdapter
@@ -223,8 +223,5 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     override fun onTimeSet(p0: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
-    }
-    fun getDisplayDate(): String {
-        return binding?.tvDateShown?.text as String
     }
 }

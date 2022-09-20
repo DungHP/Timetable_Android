@@ -10,8 +10,7 @@ import com.example.timetable_android.databinding.TimetableRowBinding
 
 class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
                        private val editListener: (id: Int) -> Unit,
-                       private val deleteListener: (id: Int) -> Unit,
-                       private val displayDate: String):RecyclerView.Adapter<TimetableAdapter.ViewHolder>(){
+                       private val deleteListener: (id: Int) -> Unit):RecyclerView.Adapter<TimetableAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        return ViewHolder(TimetableRowBinding.inflate(
@@ -29,12 +28,6 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
         }
         holder.delete.setOnClickListener{
             deleteListener.invoke(item.id)
-        }
-        if("${item.year}/${item.month}/${item.day}" == displayDate){
-            holder.llTimetableRow.visibility = View.VISIBLE
-        }
-        else{
-            holder.llTimetableRow.visibility = View.GONE
         }
 
 
