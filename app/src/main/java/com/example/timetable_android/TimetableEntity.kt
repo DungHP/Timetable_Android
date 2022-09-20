@@ -14,5 +14,6 @@ data class TimetableEntity(
     val day: String = "",
     val hour: String = "",
     val minute: String = "",
-    val description: String = ""
+    val description: String = "",
+    val categoryId : Int = 0
 )

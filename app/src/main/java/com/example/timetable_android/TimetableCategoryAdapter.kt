@@ -30,6 +30,7 @@ class TimetableCategoryAdapter(private var items: ArrayList<TimetableCategoryEnt
         holder.llTimetableCategoryRow.setOnClickListener {
             val context = holder.llTimetableCategoryRow.context
             val intent = Intent(context, TimetableActivity::class.java)
+            intent.putExtra(Constants.CATEGORY_ID, item.id)
             context.startActivity(intent)
         }
     }

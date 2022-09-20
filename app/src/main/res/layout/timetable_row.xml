@@ -23,12 +23,6 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         tools:text="Description" />
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="18sp"
-        android:visibility="gone"/>
     <ImageView
         android:id="@+id/ivEdit"
         android:layout_width="50dp"

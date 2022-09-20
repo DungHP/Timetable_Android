@@ -42,7 +42,6 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
         val description = binding.tvDescription
         val edit = binding.ivEdit
         val delete= binding.ivDelete
-        val date = binding.tvDate
     }
 
 }

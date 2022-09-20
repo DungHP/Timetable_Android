@@ -45,10 +45,11 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         super.onCreate(savedInstanceState)
         binding = ActivityTimetableBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
+        val categoryId = intent.getIntExtra(Constants.CATEGORY_ID, 0)
         val timetableDao = (application as TimetableApp).db.timetableDao()
         binding?.btnCreate?.setOnClickListener{
             intent = Intent(this, InsertActivity::class.java)
+            intent.putExtra(Constants.CATEGORY_ID, categoryId)
             startActivity(intent)
             finish()
         }

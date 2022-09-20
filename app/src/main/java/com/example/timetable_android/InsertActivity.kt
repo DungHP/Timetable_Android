@@ -26,6 +26,7 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
     private var savedYear = 0
     private var savedHour = 0
     private var savedMinute = 0
+    private var categoryId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInsertBinding.inflate(layoutInflater)
@@ -39,6 +40,7 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
             startActivity(intent)
             finish()
         }
+        categoryId = intent.getIntExtra(Constants.CATEGORY_ID, 0)
         pickDate()
     }
     fun addRecord(timetableDao : TimetableDao){
@@ -48,11 +50,10 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         val hour = savedHour.toString()
         val minute = savedMinute.toString()
         val description = binding?.etDescription?.text.toString()
-
         if (day != "0" && description.isNotEmpty()){
             lifecycleScope.launch{
                 timetableDao.insert(TimetableEntity(year= year, month = month,
-                    day= day, hour = hour, minute = minute, description= description))
+                    day= day, hour = hour, minute = minute, description= description, categoryId = categoryId))
                 Toast.makeText(applicationContext,"Record Saved Successfully", Toast.LENGTH_LONG).show()
                 binding?.etDescription?.text?.clear()
             }
