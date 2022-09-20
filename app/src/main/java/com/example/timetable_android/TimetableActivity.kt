@@ -41,11 +41,12 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
     private var savedHour = 0
     private var savedMinute = 0
     private var datePickerSelection : Int = 0
+    private var categoryId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimetableBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        val categoryId = intent.getIntExtra(Constants.CATEGORY_ID, 0)
+        categoryId = intent.getIntExtra(Constants.CATEGORY_ID, 0)
         val timetableDao = (application as TimetableApp).db.timetableDao()
         binding?.btnCreate?.setOnClickListener{
             intent = Intent(this, InsertActivity::class.java)
@@ -64,19 +65,13 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             pickDate()
 
         }
-        lifecycleScope.launch{
-            timetableDao.fetchAllTimetable().collect{
-                val list = ArrayList(it)
-                setUpDataInRecyclerView(list,timetableDao)
-            }
-        }
 
     }
     private fun setUpDataInRecyclerView(timetableList: ArrayList<TimetableEntity>, timetableDao: TimetableDao){
         if(timetableList.isNotEmpty()){
             val TimetableAdapter = TimetableAdapter(timetableList, {editId -> editRecordDialog(editId, timetableDao)},
                 {deleteId -> lifecycleScope.launch{
-                    timetableDao.fetchTimetableById(deleteId).collect{
+                    timetableDao.fetchTimetableById(deleteId, categoryId = categoryId).collect{
                         if(it != null){
                             deleteAlertDialog(deleteId, timetableDao,it)
                         }
@@ -103,7 +98,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         //Set the Text of the Desc in the Edit Dialog
         lifecycleScope.launch {
-            timetableDao.fetchTimetableById(id).collect {
+            timetableDao.fetchTimetableById(id, categoryId = categoryId).collect {
                 binding.tvCurrentTime.setText("${it.hour}:${it.minute}")
                 binding.etUpdateDescription.setText(it.description)
                 binding.tvCurrentDate.setText("${it.year}/${it.month}/${it.day}")
@@ -204,7 +199,7 @@ class TimetableActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             binding?.tvDateShown?.text = "$savedYearForDisplay/$savedMonthForDisplay/$savedDayForDisplay"
              lifecycleScope.launch{
                 timetableDao.fetchAllTimetableOfCorrectDay(
-                   savedYearForDisplay, savedMonthForDisplay, savedDayForDisplay).collect{
+                   savedYearForDisplay, savedMonthForDisplay, savedDayForDisplay, categoryId = categoryId).collect{
                     try {
                         if (binding?.tvDateShown?.text == "${it[0].year}/${it[0].month}/${it[0].day}"){
                             val list = ArrayList(it)
