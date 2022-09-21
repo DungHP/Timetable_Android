@@ -37,6 +37,7 @@ class InsertActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, 
         }
         binding?.btnGoBack?.setOnClickListener{
             intent = Intent(this, TimetableActivity::class.java)
+            intent.putExtra(Constants.CATEGORY_ID, categoryId)
             startActivity(intent)
             finish()
         }
