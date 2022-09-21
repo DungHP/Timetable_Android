@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable_android.databinding.ActivityTimetableBinding
 import com.example.timetable_android.databinding.TimetableRowBinding
@@ -29,7 +30,14 @@ class TimetableAdapter(private var items: ArrayList<TimetableEntity>,
         holder.delete.setOnClickListener{
             deleteListener.invoke(item.id)
         }
-
+        if(position % 2 == 0){
+            holder.llTimetableRow.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.light_blue))
+        }
+        else{
+            holder.llTimetableRow.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.white))
+        }
 
 
     }
