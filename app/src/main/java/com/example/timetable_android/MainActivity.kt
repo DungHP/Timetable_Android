@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             else {
                 Toast.makeText(
                     applicationContext,
-                    "Image or Description cannot be blank",
+                    "Description cannot be blank",
                     Toast.LENGTH_LONG
                 ).show()
             }
