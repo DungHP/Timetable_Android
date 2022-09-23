@@ -169,8 +169,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnSelectImage.setOnClickListener {
             openGalleryLauncher.launch(getPickIntent())
-            bitmapImage = BitmapFactory.decodeByteArray(outputStream.toByteArray(), 0 ,
-                outputStream.toByteArray().size)
             binding.ivCategoryImage.setImageBitmap(bitmapImage)
         }
         binding.tvUpdate.setOnClickListener {
@@ -203,6 +201,11 @@ class MainActivity : AppCompatActivity() {
             }
         binding.tvCancel.setOnClickListener{
             editDialog.dismiss()
+            //Refresh
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
         //Start the dialog and display it on screen.
         editDialog.show()
