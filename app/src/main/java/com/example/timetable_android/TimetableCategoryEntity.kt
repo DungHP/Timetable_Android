@@ -12,5 +12,5 @@ data class TimetableCategoryEntity(
     val id: Int = 0,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     val image : ByteArray? = null,
-    val description: String
+    val description: String ? = null
 )

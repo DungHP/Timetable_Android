@@ -16,4 +16,7 @@ interface TimetableCategoryDao {
 
     @Query("SELECT * FROM `timetable-category-table`")
     fun fetchAllTimetableCategory(): Flow<List<TimetableCategoryEntity>>
+
+    @Query("SELECT * FROM `timetable-category-table` WHERE id=:id")
+    fun fetchTimetableById(id:Int): Flow<TimetableCategoryEntity>
 }

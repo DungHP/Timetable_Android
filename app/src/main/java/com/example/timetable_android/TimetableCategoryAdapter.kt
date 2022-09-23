@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.timetable_android.databinding.TimetableCategoryRowBinding
 import java.sql.Time
 
-class TimetableCategoryAdapter(private var items: ArrayList<TimetableCategoryEntity>)
+class TimetableCategoryAdapter(private var items: ArrayList<TimetableCategoryEntity>,
+                               private val editListener: (id: Int) -> Unit,
+                               private val deleteListener: (id: Int) -> Unit)
     :RecyclerView.Adapter<TimetableCategoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,6 +35,12 @@ class TimetableCategoryAdapter(private var items: ArrayList<TimetableCategoryEnt
             intent.putExtra(Constants.CATEGORY_ID, item.id)
             context.startActivity(intent)
         }
+        holder.edit.setOnClickListener {
+            editListener.invoke(item.id)
+        }
+        holder.delete.setOnClickListener{
+            deleteListener.invoke(item.id)
+        }
     }
     override fun getItemCount(): Int {
         return items.size
@@ -42,6 +50,8 @@ class TimetableCategoryAdapter(private var items: ArrayList<TimetableCategoryEnt
         val llTimetableCategoryRow = binding.llTimetableCategoryRow
         val category = binding.tvCategory
         val image = binding.ivCategoryImage
+        val edit = binding.ivEdit
+        val delete = binding.ivDelete
     }
 
 }
